@@ -1,0 +1,41 @@
+MIT License
+
+Copyright (c) 2026 Xiangzhu Li, Huang Tan, Guangmou Cai, Rui Zhang, Qin Zhang,
+Haojian Mai, Yuhao Liu, Qihui Zhang, Gaozhan Xie, Li Zhang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+DATA NOTICE
+
+This repository contains SOURCE CODE ONLY. It does not contain, and does not
+grant any right to, the HBN-EEG dataset or any derivative of it.
+
+The HBN-EEG data are distributed by the Child Mind Institute Healthy Brain
+Network (HBN) program under a Data Use Agreement. Anyone wishing to obtain the
+data must apply through the HBN portal and accept the HBN DUA terms:
+
+    https://www.hbnconsortium.org/
+
+Derived data products (per-subject network features, model fit statistics, and
+clinical-association tables) are also restricted, because they contain
+de-identified but non-public participant-level information subject to the same
+DUA. They are therefore NOT redistributed here. The analysis scripts in this
+repository regenerate all of them from the raw HBN-EEG recordings.
