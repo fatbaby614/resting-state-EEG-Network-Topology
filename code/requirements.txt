@@ -1,0 +1,10 @@
+# HBN 课题4 实验依赖（Windows / Linux 通用）
+# 安装: pip install -r requirements.txt
+numpy>=1.24
+scipy>=1.10
+pandas>=1.5
+scikit-learn>=1.2
+networkx>=3.0
+mne>=1.4
+matplotlib>=3.7
+pyyaml>=6.0

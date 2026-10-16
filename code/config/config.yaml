@@ -1,0 +1,70 @@
+# ============================================================
+#  HBN 课题4 实验配置 — Riemannian Topological Allometry
+#  双平台：Windows(本机) / Linux(工作站)，运行时自动检测
+# ============================================================
+
+platform:
+  # 自动检测：os.name == 'nt' -> windows 路径；否则 -> linux 路径
+  windows_data_root: "E:/datasets/HBN"
+  linux_data_root: "/mnt/data1/home/tanhuang/datasets/HBN"
+
+# 使用的 release 列表；留空 = 自动发现 data_root 下所有 HBN-Release* 目录
+releases: []
+
+# 任务选择（本课题只用静息态）
+task: "RestingState"
+
+# ---------------- EEG 预处理 ----------------
+preprocess:
+  l_freq: 0.5          # 高通(Hz)
+  h_freq: 45.0         # 低通(Hz)
+  eyes_closed_event: "instructed_toCloseEyes"   # 闭眼事件名
+  eyes_closed_duration: 38.0   # 闭眼段截取时长(秒)，40s中取38s留余量
+  eyes_closed_trim: 2.0        # 段首丢弃(秒)，避开切换伪迹
+  win_len_sec: 2.0             # 协方差估计滑动窗口(秒)
+  win_overlap: 0.5             # 窗口重叠比例
+  notch_filter: true           # 是否陷波滤波(工频：美标60Hz)
+  reject_bad_channels: true    # 是否剔除坏通道(基于幅度方差)
+
+# ---------------- 频带定义 ----------------
+bands:
+  delta: [0.5, 4]
+  theta: [4, 8]
+  alpha: [8, 13]
+  beta:  [13, 30]
+  gamma: [30, 45]
+
+# ---------------- 网络构建 ----------------
+network:
+  cov_estimator: "ledoit_wolf"   # ledoit_wolf | sample
+  riemann_mean: true             # 多个窗口协方差取黎曼均值(log-Euclidean) 还是算术均值
+  threshold_mode: "density"      # density(保留最强x%连接) | mst
+  density: 0.20                  # 保留前20%最强连接
+  edge_weight: "correlation"     # correlation(相关矩阵上三角) | covariance
+  use_abs: true                  # 阈值化时是否取绝对值
+  n_random_graphs: 20            # 小世界属性随机基准图数量(度保持随机化)
+
+# ---------------- 统计建模(TAE) ----------------
+allometry:
+  min_age: 5.0
+  max_age: 21.0
+  age_group_edges: [5, 9, 13, 17, 22]   # 年龄分组边界(用于图4小提琴图)
+  age_group_labels: ["5-8", "9-12", "13-16", "17-21"]
+  fdr_alpha: 0.05
+
+# ---------------- 临床关联 ----------------
+clinical:
+  outcomes: ["externalizing", "attention", "internalizing", "p_factor"]
+  covariates: ["sex"]              # 偏相关控制变量（头动未直接提供，后续可加）
+  high_risk_col: "externalizing"   # ROC 高风险定义列
+  high_risk_cutoff: 1.0            # 标准化分数 > 1SD 视为高风险
+
+# ---------------- 运行控制 ----------------
+run:
+  n_jobs: 4                # 并行被试数
+  log_level: "INFO"
+  # 冒烟测试：只处理前 N 个被试、只跑少量频带，用于验证流水线
+  smoke_test: false
+  smoke_max_subjects: 6
+  smoke_releases: ["HBN-Release1-ds005505"]
+  smoke_bands: ["alpha", "beta"]
